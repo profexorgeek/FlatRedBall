@@ -16,7 +16,16 @@ namespace FRBEngineTest
 {
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+        const float secondsPerScreen = 10f;
+        List<Type> testScreens = new List<Type>()
+        {
+            typeof(Screens.SpriteTest),
+            typeof(Screens.ShapeTest)
+        };
+
         GraphicsDeviceManager graphics;
+        float screenTimeRemaining = secondsPerScreen;
+        int screenIndex = 0;
 
         public Game1() : base()
         {
@@ -68,6 +77,9 @@ namespace FRBEngineTest
         {
             FlatRedBallServices.Update(gameTime);
             ScreenManager.Activity();
+
+            ScreenTransitionActivity();
+
             base.Update(gameTime);
         }
 
@@ -76,6 +88,22 @@ namespace FRBEngineTest
             FlatRedBallServices.Draw();
 
             base.Draw(gameTime);
+        }
+
+        private void ScreenTransitionActivity()
+        {
+            if(screenTimeRemaining <= 0)
+            {
+                screenIndex++;
+                if(screenIndex > testScreens.Count - 1)
+                {
+                    screenIndex = 0;
+                }
+                screenTimeRemaining = secondsPerScreen;
+                ScreenManager.MoveToScreen(testScreens[screenIndex]);
+            }
+
+            screenTimeRemaining -= TimeManager.SecondDifference;
         }
     }
 }

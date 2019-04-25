@@ -11,5 +11,6 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Game1.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Screens\SpriteTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Screens\ShapeTest.cs" />
   </ItemGroup>
 </Project>
